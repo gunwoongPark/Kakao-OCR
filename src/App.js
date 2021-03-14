@@ -7,13 +7,60 @@ function App() {
   const [img, setImg] = useState(null);
   const [result, setResult] = useState(null);
 
+  function dataURItoBlob(dataURI) {
+    var byteString = atob(dataURI.split(",")[1]);
+    var mimeString = dataURI.split(",")[0].split(":")[1].split(";")[0];
+    var ab = new ArrayBuffer(byteString.length);
+    var ia = new Uint8Array(ab);
+    for (var i = 0; i < byteString.length; i++) {
+      ia[i] = byteString.charCodeAt(i);
+    }
+
+    return new Blob([ab], { type: mimeString });
+  }
+
+  function getThumbFile(image, file) {
+    var canvas = document.createElement("canvas");
+    var base_size = 1024000; //1MB (썸네일 작업 유무 기준 사이즈)
+    var comp_size = 102400; //100KB (썸네일 작업 결과물 사이즈, 50~200KB 수준으로 압축됨)
+    var width = image.width;
+    var height = image.height;
+    var size = file.size;
+
+    if (size > base_size) {
+      var ratio = Math.ceil(Math.sqrt(size / comp_size, 2));
+      width = image.width / ratio;
+      height = image.height / ratio;
+      canvas.width = width;
+      canvas.height = height;
+      canvas.getContext("2d").drawImage(image, 0, 0, width, height);
+      var tmpThumbFile = dataURItoBlob(canvas.toDataURL("image/png")); //dataURLtoBlob 부분은 이전 포스팅 참조
+      return tmpThumbFile;
+    }
+  }
+
   const handleCapture = (target) => {
     if (target.files) {
       if (target.files.length !== 0) {
         const file = target.files[0];
+
+        if (file.size > 2000000) {
+          let fReader = new FileReader();
+          fReader.readAsDataURL(file);
+          fReader.onload = (e) => {
+            let img = new Image();
+            img.src = fReader.result;
+            img.onload = function () {
+              let thumbFile = getThumbFile(img, file);
+              setSource(thumbFile);
+            };
+          };
+        } else {
+          setSource(file);
+        }
+
         const newURL = URL.createObjectURL(file);
         setImg(newURL);
-        setSource(file);
       }
     }
   };
