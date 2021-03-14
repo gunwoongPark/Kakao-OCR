@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/Kakao-OCR/static/css/main.055a3a51.chunk.css",
+    "main.js": "/Kakao-OCR/static/js/main.ea1e4d98.chunk.js",
+    "main.js.map": "/Kakao-OCR/static/js/main.ea1e4d98.chunk.js.map",
+    "runtime-main.js": "/Kakao-OCR/static/js/runtime-main.acf3e683.js",
+    "runtime-main.js.map": "/Kakao-OCR/static/js/runtime-main.acf3e683.js.map",
+    "static/js/2.e74b7293.chunk.js": "/Kakao-OCR/static/js/2.e74b7293.chunk.js",
+    "static/js/2.e74b7293.chunk.js.map": "/Kakao-OCR/static/js/2.e74b7293.chunk.js.map",
+    "static/js/3.89425fc1.chunk.js": "/Kakao-OCR/static/js/3.89425fc1.chunk.js",
+    "static/js/3.89425fc1.chunk.js.map": "/Kakao-OCR/static/js/3.89425fc1.chunk.js.map",
+    "index.html": "/Kakao-OCR/index.html",
+    "static/css/main.055a3a51.chunk.css.map": "/Kakao-OCR/static/css/main.055a3a51.chunk.css.map",
+    "static/js/2.e74b7293.chunk.js.LICENSE.txt": "/Kakao-OCR/static/js/2.e74b7293.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.acf3e683.js",
+    "static/js/2.e74b7293.chunk.js",
+    "static/css/main.055a3a51.chunk.css",
+    "static/js/main.ea1e4d98.chunk.js"
+  ]
+}
