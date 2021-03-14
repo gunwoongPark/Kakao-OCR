@@ -21,22 +21,20 @@ function App() {
 
   function getThumbFile(image, file) {
     var canvas = document.createElement("canvas");
-    var base_size = 1024000; //1MB (썸네일 작업 유무 기준 사이즈)
     var comp_size = 102400; //100KB (썸네일 작업 결과물 사이즈, 50~200KB 수준으로 압축됨)
     var width = image.width;
     var height = image.height;
     var size = file.size;
 
-    if (size > base_size) {
-      var ratio = Math.ceil(Math.sqrt(size / comp_size, 2));
-      width = image.width / ratio;
-      height = image.height / ratio;
-      canvas.width = width;
-      canvas.height = height;
-      canvas.getContext("2d").drawImage(image, 0, 0, width, height);
-      var tmpThumbFile = dataURItoBlob(canvas.toDataURL("image/png")); //dataURLtoBlob 부분은 이전 포스팅 참조
-      return tmpThumbFile;
-    }
+    var ratio = Math.ceil(Math.sqrt(size / comp_size, 2));
+    width = image.width / ratio;
+    height = image.height / ratio;
+    canvas.width = width;
+    canvas.height = height;
+    canvas.getContext("2d").drawImage(image, 0, 0, width, height);
+    var tmpThumbFile = dataURItoBlob(canvas.toDataURL("image/png")); //dataURLtoBlob 부분은 이전 포스팅 참조
+
+    return tmpThumbFile;
   }
 
   const handleCapture = (target) => {
@@ -77,10 +75,16 @@ function App() {
         },
       })
       .then((res) => {
-        setResult(res.data.result[0].recognition_words[0]);
+        console.log(res);
+        setResult(
+          res.data.result.map((el) => {
+            return el.recognition_words[0];
+          })
+        );
       })
       .catch((err) => {
         setResult(err.response.statusText);
+        console.log(err.response);
       });
   };
 
